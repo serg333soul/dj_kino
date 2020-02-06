@@ -7,6 +7,5 @@ class HomeView(View):
 
     def get(self, request):
         context = Category.objects.all()
-        print(context)
         return render(request, 'blog/home.html', {'context': context})
         
