@@ -8,9 +8,9 @@
     </head>
     <body>
     
-    {% for category in context %}
-        <p>{{ category.name }} - {{ category.slug }}</p>
-    {% endfor %}
+        {% for category in context %}
+            <p><a href="/{{ category.slug }}/">{{ category.name }} </a></p>
+        {% endfor %}
         
     </body>
 </html>
