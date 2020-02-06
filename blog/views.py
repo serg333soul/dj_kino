@@ -8,4 +8,9 @@ class HomeView(View):
     def get(self, request):
         context = Category.objects.all()
         return render(request, 'blog/home.html', {'context': context})
+
+class CategoryView(View):
+    def get(self, request, slug):
+        category = Category.objects.get(slug=slug)
+        return render(request, 'blog/post_list.html', {'category': category})        
         
