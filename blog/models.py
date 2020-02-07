@@ -11,3 +11,14 @@ class Category(models.Model):
     class Meta:
         verbose_name = 'Категория'
         verbose_name_plural = 'Категории'
+
+class Tag(models.Model):
+    name = models.CharField('Имя', max_length=100)
+    slug = models.SlugField('url', max_length=100)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Тег'
+        verbose_name_plural = 'Теги'        
