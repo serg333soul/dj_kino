@@ -11,6 +11,10 @@
         {% for category in context %}
             <p><a href="{% url 'category' category.slug %}">{{ category.name }} </a></p>
         {% endfor %}
+
+        {% for p in post %}
+          {{ p }}
+        {% endfor %}
         
     </body>
 </html>

@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import datetime
 
 # Create your models here.
 class Category(models.Model):
@@ -21,4 +22,30 @@ class Tag(models.Model):
 
     class Meta:
         verbose_name = 'Тег'
-        verbose_name_plural = 'Теги'        
+        verbose_name_plural = 'Теги'    
+
+class Post(models.Model):
+    title = models.CharField('Заглавие', max_length=500)
+    mini_text = models.TextField('Описание')
+    text = models.TextField('Текст')
+    create_date = models.DateTimeField(default=datetime.now, blank=True)
+    slug = models.SlugField(max_length=100)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'Пост'
+        verbose_name_plural = 'Посты'    
+    
+class Comment(models.Model):
+    text = models.TextField('Коментарий')
+    create_date = models.DateTimeField(default=datetime.now, blank=True)
+    moderation = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.text
+
+    class Meta:
+        verbose_name = 'Коментарий'
+        verbose_name_plural = 'Коментарии'
