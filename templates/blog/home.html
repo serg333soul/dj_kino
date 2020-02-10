@@ -8,12 +8,12 @@
     </head>
     <body>
     
-        {% for category in context %}
+        {% for category in categories %}
             <p><a href="{% url 'category' category.slug %}">{{ category.name }} </a></p>
         {% endfor %}
 
-        {% for p in post %}
-          {{ p }}
+        {% for post in posts %}
+          <p><a href="{% url 'post' post.slug %}">{{ post.title }}</a></p>
         {% endfor %}
         
     </body>

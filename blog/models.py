@@ -29,7 +29,7 @@ class Post(models.Model):
     mini_text = models.TextField('Описание')
     text = models.TextField('Текст')
     create_date = models.DateTimeField(default=datetime.now, blank=True)
-    slug = models.SlugField(max_length=100)
+    slug = models.SlugField('url', max_length=100)
 
     def __str__(self):
         return self.title
