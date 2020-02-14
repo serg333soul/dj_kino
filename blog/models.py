@@ -1,6 +1,8 @@
+from django.contrib.auth.models import User
 from django.db import models
 from datetime import datetime
 from mptt.fields import TreeForeignKey
+from django.utils import timezone
 
 # Create your models here.
 class Category(models.Model):
@@ -30,6 +32,7 @@ class Category(models.Model):
 class Tag(models.Model):
     name = models.CharField('Имя', max_length=100)
     slug = models.SlugField('url', max_length=100)
+    published = models.BooleanField('Отображать?', default=True)
 
     def __str__(self):
         return self.name
@@ -39,11 +42,41 @@ class Tag(models.Model):
         verbose_name_plural = 'Теги'    
 
 class Post(models.Model):
+    '''Класс модели поста'''
+    author = models.ForeignKey(
+        User,
+        verbose_name = 'Автор',
+        on_delete = models.SET_NULL,
+        null = True,
+        blank = True
+    )
+
     title = models.CharField('Заглавие', max_length=500)
-    mini_text = models.TextField('Описание')
-    text = models.TextField('Текст')
+    mini_text = models.TextField('Краткое содержание', max_lenght=5000)
+    text = models.TextField('Полное содержание', max_length=10000000)
     create_date = models.DateTimeField(default=datetime.now, blank=True)
     slug = models.SlugField('url', max_length=100)
+    subtitle = models.Charfield('Подзаголовок', max_length=500, blank=True)
+    edit_date = models.DateTimeField(
+        'Дата редактирования',
+        default=timezone.now,
+        blank=True,
+        null=True
+    )
+    published_date = models.DateTimeField(
+        'Дата публикации',
+        default = timezone.now,
+        blank = True,
+        null = True
+    )
+    image = models.ImageField('Главная фотография', upload_to='post/', null=True, blank=True)
+    tags = models.MantToManyField(Tag, verbose_name='Тег', blank=True)
+    category = models.ForeignKey(
+        Category,
+        verbose_name = 'Категория',
+        on_delete = models.CASCADE,
+        null = True
+    )
 
     def __str__(self):
         return self.title
