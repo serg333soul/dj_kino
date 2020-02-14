@@ -1,21 +1,26 @@
 from django.shortcuts import render
+from datetime import datetime
 from django.views.generic.base import View
 from .models import Category, Tag, Post
 # Create your views here.
 
 class HomeView(View):
+    '''Home page'''
     def get(self, request):
-        categories = Category.objects.all()
-        posts = Post.objects.all()
-        print(categories, posts)
-        return render(request, 'blog/home.html', {'categories': categories, 'posts': posts})
+        category_list = Category.objects.all()
+        post_list = Post.objects.filter(published_date__lte=datetime.now(), published=True)
+        return render(request, 'blog/post_list.html', {'categories': category_list, 'post_list': post_list})
+
+class PostDetailView(View):
+    '''Вывод полной статьи'''
+    def get(self, request, category, slug):
+        category_list = Category.objects.all() 
+        post = Post.objects.get(slug=slug)
+        return render(request, 'blog/post_detal.html', {'categories': category_list, 'post': post})
 
 class CategoryView(View):
-    def get(self, request, slug):
-        category = Category.objects.get(slug=slug)
-        return render(request, 'blog/post_list.html', {'category': category})   
-
-class PostView(View):
-    def get(self, request, slug):
-        post = Post.objects.get(slug=slug)
-        return render(request, "blog/post_list.html", {'post': post})
+    '''Вывод статей категории'''
+    def get(self, request, category_name):
+        category = Category.objects.get(slug=category_name)
+        return render(request, 'blog/post_list.html', {'category': category})
+           

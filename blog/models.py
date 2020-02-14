@@ -1,8 +1,10 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.urls import reverse
 from datetime import datetime
 from mptt.fields import TreeForeignKey
 from django.utils import timezone
+from mptt.models import MPTTModel
 
 # Create your models here.
 class Category(models.Model):
@@ -77,21 +79,38 @@ class Post(models.Model):
         on_delete = models.CASCADE,
         null = True
     )
+    template = models.CharField('Шаблон', max_length=500, default='blog/post_detail.html')
 
+    published = models.BooleanField('Опубликовать?', default=True)
+    viewd = models.PositiveIntegerField('Просмотрено', default=0)
+    status = models.BooleanField('Для зарегистрированных', default=False)
+    sort = models.PositiveIntegerField('Порядок', default=0)
+
+    def get_absolute_url(self):
+        return reverse("detail_post", kwargs={"category": self.category.slug, 'slug': self.slug})
+    
     def __str__(self):
-        return self.title
+        return '{}'.format(self.title)
 
     class Meta:
         verbose_name = 'Пост'
         verbose_name_plural = 'Посты'    
     
 class Comment(models.Model):
+    '''Модель коментария поста'''
+    author = models.ForeignKey(
+        User,
+        verbose_name='Автор',
+        on_delete=models.CASCADE
+    )
+
     text = models.TextField('Коментарий')
-    create_date = models.DateTimeField(default=datetime.now, blank=True)
+    create_date = models.DateTimeField('Дата создания', auto_now=True)
+    post = models.ForeignKey(Post, verbose_name='Статья', on_delete=models.CASCADE)
     moderation = models.BooleanField(default=False)
 
-    def __str__(self):
-        return self.text
+    # def __str__(self):
+    #    return self.text
 
     class Meta:
         verbose_name = 'Коментарий'
