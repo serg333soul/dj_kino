@@ -2,7 +2,7 @@ from django.shortcuts import render
 from datetime import datetime
 from django.views.generic.base import View
 from .models import Category, Tag, Post
-# Create your views here.
+
 
 class HomeView(View):
     '''Home page'''

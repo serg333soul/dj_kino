@@ -19,7 +19,7 @@ class Category(models.Model):
         blank = True,
         related_name = 'children'
     )
-    template = models.Charfield('Шаблон', max_length=500, default='blog/post_list.html')
+    template = models.CharField('Шаблон', max_length=500, default='blog/post_list.html')
     published = models.BooleanField('Отображать?', default=True)
     paginated = models.PositiveIntegerField('Количество новостей на странице', default=5)
     sort = models.PositiveIntegerField('Порядок', default=0)
@@ -54,11 +54,11 @@ class Post(models.Model):
     )
 
     title = models.CharField('Заглавие', max_length=500)
-    mini_text = models.TextField('Краткое содержание', max_lenght=5000)
+    mini_text = models.TextField("Краткое содержание", max_length=5000)
     text = models.TextField('Полное содержание', max_length=10000000)
     create_date = models.DateTimeField(default=datetime.now, blank=True)
     slug = models.SlugField('url', max_length=100)
-    subtitle = models.Charfield('Подзаголовок', max_length=500, blank=True)
+    subtitle = models.CharField('Подзаголовок', max_length=500, blank=True)
     edit_date = models.DateTimeField(
         'Дата редактирования',
         default=timezone.now,
@@ -72,7 +72,7 @@ class Post(models.Model):
         null = True
     )
     image = models.ImageField('Главная фотография', upload_to='post/', null=True, blank=True)
-    tags = models.MantToManyField(Tag, verbose_name='Тег', blank=True)
+    tags = models.ManyToManyField(Tag, verbose_name='Тег', blank=True)
     category = models.ForeignKey(
         Category,
         verbose_name = 'Категория',

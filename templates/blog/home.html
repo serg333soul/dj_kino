@@ -9,11 +9,14 @@
     <body>
     
         {% for category in categories %}
-            <p><a href="{% url 'category' category.slug %}">{{ category.name }} </a></p>
+            <p><a href="{% url 'category' category.slug %}">{{ category.name }}</a></p>
         {% endfor %}
-
-        {% for post in posts %}
-          <p><a href="{% url 'post' post.slug %}">{{ post.title }}</a></p>
+        <hr>
+        {% for post in post_list %}
+            {#  Что не так с URL ? #}
+            <h2><a href="{% url 'category' post.slug %}">{{ post.name }}</a></h2>
+            <p>{{ post.mini_text }}</p>
+            <small>{{ post.created_date }}</small>
         {% endfor %}
         
     </body>
