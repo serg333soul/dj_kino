@@ -16,7 +16,7 @@ class PostDetailView(View):
     def get(self, request, category, slug):
         category_list = Category.objects.all() 
         post = Post.objects.get(slug=slug)
-        return render(request, 'blog/post_detal.html', {'categories': category_list, 'post': post})
+        return render(request, 'blog/post_detail.html', {'categories': category_list, 'post': post})
 
 class CategoryView(View):
     '''Вывод статей категории'''

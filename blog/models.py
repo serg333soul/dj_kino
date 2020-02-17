@@ -6,8 +6,9 @@ from mptt.fields import TreeForeignKey
 from django.utils import timezone
 from mptt.models import MPTTModel
 
+
 # Create your models here.
-class Category(models.Model):
+class Category(MPTTModel):
     name = models.CharField('Имя', max_length=100)
     slug = models.SlugField('url', max_length=100)
     description = models.TextField('Описание', max_length=1000, default='', blank=True)
