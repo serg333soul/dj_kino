@@ -8,8 +8,20 @@
 <body>
         <h2>{{ post.title }}</h2>
         <p>{{ post.mini_text }}</p>
+        <p>Категория - {{ post.category }}</p>
         <p>{{ post.text }}</p>
-        <p>{{ post.image }}</p>
-        <small>{{ post.published_date }}</small>
+        Теги-{% for tag in post.tags.all %}
+                    {{ tag.name }}
+                {% endfor %} 
+        <br>             
+        <small>Автор: {{ post.author }} - {{ post.published_date }}</small>
+        <hr>
+
+        <h4>Коментарии</h4>
+        {% for comm in post.comment %}
+          Пользователь - {{ comm.author }} <br>
+          {{ comm.text }} <br>
+          Добавлен - {{ comm.create_date }}
+        {% endfor %}
 </body>
 </html>

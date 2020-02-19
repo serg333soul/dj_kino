@@ -73,7 +73,7 @@ class Post(models.Model):
         null = True
     )
     image = models.ImageField('Главная фотография', upload_to='post/', null=True, blank=True)
-    tags = models.ManyToManyField(Tag, verbose_name='Тег', blank=True)
+    tags = models.ManyToManyField(Tag, verbose_name='Тег', blank=True, related_name='tag')
     category = models.ForeignKey(
         Category,
         verbose_name = 'Категория',
@@ -90,6 +90,12 @@ class Post(models.Model):
     def get_absolute_url(self):
         return reverse("detail_post", kwargs={"category": self.category.slug, 'slug': self.slug})
     
+    def get_tags(self):
+        return self.tags.all()
+
+    def get_comments_count(self):
+        return self.comments.count()    
+
     def __str__(self):
         return '{}'.format(self.title)
 
@@ -105,9 +111,15 @@ class Comment(models.Model):
         on_delete=models.CASCADE
     )
 
+    post = models.ForeignKey(
+        Post,
+        verbose_name = 'Статья',
+        on_delete = models.CASCADE,
+        related_name = 'comments'
+    )
+
     text = models.TextField('Коментарий')
     create_date = models.DateTimeField('Дата создания', auto_now=True)
-    post = models.ForeignKey(Post, verbose_name='Статья', on_delete=models.CASCADE)
     moderation = models.BooleanField(default=False)
 
     # def __str__(self):

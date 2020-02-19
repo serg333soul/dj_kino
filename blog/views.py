@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from datetime import datetime
 from django.views.generic.base import View
-from .models import Category, Tag, Post
+from .models import Category, Tag, Post, Comment
 
 
 class HomeView(View):
@@ -16,7 +16,9 @@ class PostDetailView(View):
     def get(self, request, category, slug):
         category_list = Category.objects.all() 
         post = Post.objects.get(slug=slug)
-        return render(request, 'blog/post_detail.html', {'categories': category_list, 'post': post})
+        comment = Comment.objects.filter(post_id=post.id)
+        print('_____________________________', comment)
+        return render(request, 'blog/post_detail.html', {'categories': category_list, 'post': post, 'comment': comment})
 
 class CategoryView(View):
     '''Вывод статей категории'''
