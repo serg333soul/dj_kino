@@ -11,14 +11,24 @@ class HomeView(View):
         post_list = Post.objects.filter(published_date__lte=datetime.now(), published=True)
         return render(request, 'blog/post_list.html', {'categories': category_list, 'post_list': post_list})
 
+class TagDetailView(View):
+    pass
+
 class PostDetailView(View):
     '''Вывод полной статьи'''
     def get(self, request, category, slug):
         category_list = Category.objects.all() 
         post = Post.objects.get(slug=slug)
-        comment = Comment.objects.filter(post_id=post.id)
-        print('_____________________________', comment)
-        return render(request, 'blog/post_detail.html', {'categories': category_list, 'post': post, 'comment': comment})
+        comments = Comment.objects.filter(post_id=post.id)
+
+        context = {
+            'categories': category_list, 
+            'post': post, 
+            'comments': comments,
+        }
+
+        print('_____________________________', comments)
+        return render(request, 'blog/post_detail.html', context)
 
 class CategoryView(View):
     '''Вывод статей категории'''

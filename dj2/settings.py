@@ -25,7 +25,7 @@ SECRET_KEY = '8f0tejecc*ea5!ydjfhwmlz22^qtjmc&xbzf2hvtayya)ej)%g'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'mptt',
-
     'blog',
 ]
 

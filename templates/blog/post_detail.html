@@ -10,18 +10,19 @@
         <p>{{ post.mini_text }}</p>
         <p>Категория - {{ post.category }}</p>
         <p>{{ post.text }}</p>
-        Теги-{% for tag in post.tags.all %}
-                    {{ tag.name }}
-                {% endfor %} 
+        Теги- {% for tag in post.get_tags %}
+                {{ tag.name }}
+              {% endfor %} 
         <br>             
         <small>Автор: {{ post.author }} - {{ post.published_date }}</small>
         <hr>
 
         <h4>Коментарии</h4>
-        {% for comm in post.comment %}
-          Пользователь - {{ comm.author }} <br>
-          {{ comm.text }} <br>
-          Добавлен - {{ comm.create_date }}
+        {% for comment in comments %}
+          <small>Пользователь - {{ comment.author }}</small><br>
+          {{ comment.text }}<br>
+          <small>Добавлен - {{ comment.create_date }}</small> <br>
+          <hr>
         {% endfor %}
 </body>
 </html>
