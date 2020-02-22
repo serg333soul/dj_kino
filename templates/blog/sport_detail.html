@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Sport</h1>
+        <h2>{{ post.title }}</h2>
+        <p>{{ post.mini_text }}</p>
+        <p>Категория - {{ post.category }}</p>
+        <p>{{ post.text }}</p>
+        Теги- {% for tag in post.get_tags %}
+                {{ tag.name }}
+              {% endfor %} 
+        <br>             
+        <small>Автор: {{ post.author }} - {{ post.published_date }}</small>
+        <hr>
+
+        <h4>Коментарии</h4>
+        {% for comment in comments %}
+          <small>Пользователь - {{ comment.author }}</small><br>
+          {{ comment.text }}<br>
+          <small>Добавлен - {{ comment.create_date }}</small> <br>
+          <hr>
+        {% endfor %}
+</body>
+</html>

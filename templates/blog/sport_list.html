@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Sport</h1>
+    {% for category in categories %}
+        <p><a href="{% url 'category' category.slug %}">{{ category.name }}</a></p>
+    {% endfor %}
+    <hr>
+
+    {% for post in post_list %}
+        <h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
+        <p>{{ post.mini_text }}</p>
+        <small>Просмотров - {{ post.viewd }}</small>
+        <small>Коментариев - {{ post.get_comments_count }}</small>
+        <small>{{ post.published_date }}</small>
+    {% endfor %}
+</body>
+</html>

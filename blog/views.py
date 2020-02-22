@@ -20,7 +20,7 @@ class PostDetailView(View):
         category_list = Category.objects.all() 
         post = Post.objects.get(slug=slug)
         comments = Comment.objects.filter(post_id=post.id)
-
+        
         context = {
             'categories': category_list, 
             'post': post, 
@@ -28,7 +28,7 @@ class PostDetailView(View):
         }
 
         print('_____________________________', comments)
-        return render(request, 'blog/post_detail.html', context)
+        return render(request, post.template, context)
 
 class CategoryView(View):
     '''Вывод статей категории'''
