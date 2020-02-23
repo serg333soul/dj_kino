@@ -34,5 +34,8 @@ class CategoryView(View):
     '''Вывод статей категории'''
     def get(self, request, category_name):
         category = Category.objects.get(slug=category_name)
-        return render(request, 'blog/post_list.html', {'category': category})
+        print('_____________________', category)
+        posts = Post.objects.all()
+        post = Post.objects.filter(category_id=category.id)
+        return render(request, 'blog/category_detail.html', {'category': category, 'post': post})
            
