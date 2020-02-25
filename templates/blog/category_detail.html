@@ -8,7 +8,16 @@
 </head>
 <body>
    <h1>Category detail</h1>
-   <p>{{ category }}</p>
-   <p>{{ post }}</p>
+        
+        {% for post in posts %}
+            <h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
+            <p>{{ post.mini_text }}</p>
+            <small>Просмотров - {{ post.viewd }}</small>
+            <small>Коментариев - {{ post.get_comments_count }}</small>
+            <small>{{ post.published_date }}</small>
+        {% endfor %}
+            
+        
+        
 </body>
 </html>

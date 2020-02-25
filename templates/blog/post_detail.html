@@ -11,7 +11,7 @@
         <p>Категория - {{ post.category }}</p>
         <p>{{ post.text }}</p>
         Теги- {% for tag in post.get_tags %}
-                {{ tag.name }}
+                {{ tag.name }},
               {% endfor %} 
         <br>             
         <small>Автор: {{ post.author }} - {{ post.published_date }}</small>
