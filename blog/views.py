@@ -36,6 +36,6 @@ class CategoryView(View):
         category = Category.objects.get(slug=category_name)
         print('_____________________', category)
         posts = Post.objects.all()
-        post = Post.objects.filter(category_id=category.id)
+        post = Post.objects.filter(category_name__tree_id=category.id)
         return render(request, 'blog/category_detail.html', {'category': category, 'post': post})
            
