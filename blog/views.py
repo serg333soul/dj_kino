@@ -12,7 +12,10 @@ class HomeView(View):
         return render(request, 'blog/post_list.html', {'categories': category_list, 'post_list': post_list})
 
 class TagDetailView(View):
-    pass
+    def get(self, request, slug):
+        tag_list = Post.objects.filter(tags__slug=slug, tags__published=True)
+        print('---------------------', tag_list)
+        return render(request, 'blog/tag_detail.html', {'tag_list': tag_list})
 
 class PostDetailView(View):
     '''Вывод полной статьи'''

@@ -10,8 +10,10 @@
         <p>{{ post.mini_text }}</p>
         <p>Категория - {{ post.category }}</p>
         <p>{{ post.text }}</p>
-        Теги- {% for tag in post.get_tags %}
-                {{ tag.name }},
+        Теги- {% for tag in post.get_tags %}               
+                {% if tag.published %}
+                  <a href="{% url 'tag' tag.slug %}">{{ tag.name }}</a>,
+                {% endif %}                
               {% endfor %} 
         <br>             
         <small>Автор: {{ post.author }} - {{ post.published_date }}</small>
